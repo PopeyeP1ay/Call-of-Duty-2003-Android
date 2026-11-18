@@ -1,0 +1,35 @@
+# Original Call of Duty PC data must stay on the owner's computer.
+Game/
+originals/
+*.pk3
+*.pak
+*.codpack
+*.exe
+*.dll
+
+# Native builds, package bundles, and signing credentials (private only).
+*.apk
+*.aab
+*.apks
+*.so
+*.keystore
+*.jks
+*.p12
+*.pfx
+*.pem
+*.key
+*.ico
+cod_icon.png
+recomp_out/
+CallofRecomp-AllInOne-Build/
+CallofRecomp-English-Build/
+local-build/
+private/
+
+# Python caches and common development directories.
+__pycache__/
+*.pyc
+.venv/
+.vscode/
+.idea/
+.DS_Store

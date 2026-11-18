@@ -1,0 +1,40 @@
+name: Call of Duty Android - Source Only Checks
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  verify-public-project:
+    name: Validate public workflow without game assets
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Reject commercial game files, APKs, and signing keys
+        run: python tools/verify_repository.py
+
+      - name: Check public Python tools for syntax errors
+        run: python -m compileall -q tools
+
+      - name: Confirm documentation exists
+        shell: bash
+        run: |
+          test -s README.md
+          test -s docs/WORKFLOW.md
+          echo 'Documentation and repository hygiene checks passed.'
+
+# NOTE: This does NOT build an Android APK. Playable builds need locally generated
+# recompilation code and the user's own commercial PC installation. Never upload
+# those files or private all-in-one builds as GitHub Actions artifacts.
